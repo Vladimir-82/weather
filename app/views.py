@@ -14,22 +14,21 @@ def index(request):
         'https://api.openweathermap.org/data/2.5/weather?q={}&units=metric&appid=' \
         + appid
 
-    if (request.method == 'POST'):
+    if request.method == 'POST':
         if request.POST.get('_method') == 'delete':
             city_name = request.POST.get('city_name', False)
             if city_name:
-                cities.get(name=city_name).delete()
+                cities.filter(name=city_name).delete()
         else:
             form = CityForm(request.POST)
-            city = form.name
+            city = request.POST['name']
             res = requests.get(url.format(city)).json()
             if res == {'cod': '404', 'message': 'city not found'}:
                 messages.add_message(request, messages.INFO,
                                      'Such city does not exist!')
             else:
                 form.save()
-    else:
-        form = CityForm()
+    form = CityForm()
 
     all_cities = []
     for city in cities:
@@ -42,6 +41,6 @@ def index(request):
             'humidity': res['main']['humidity']
         }
         all_cities.append(city_info)
-    context = {'all_cities': all_cities}
+    context = {'all_cities': all_cities, 'form': form}
 
     return render(request, 'app/index.html', context)
