@@ -1,0 +1,51 @@
+{% extends "layout/basic.html" %}
+{% block content %}
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-6 offset-0">
+        <h1>Погода в вашем городе</h1>
+            {% for info in all_cities %}
+                <b>Город:</b> {{ info.city }}<img src="https://openweathermap.org/img/w/{{ info.icon }}.png" alt="Weather_photo" class="img-thumbnail"><br>
+                <b>Температура:</b> {{ info.temp }}<sup>o</sup>C<br>
+                <b>Влажность:</b> {{ info.humidity }}% <br>
+                <form action="" method="post">
+                {% csrf_token %}
+                <input type="hidden" name="_method" value="delete">
+                <input name="city_name" id="city_name" value="{{ info.city }}" class="mt-3 btn btn-info" hidden>
+                <input value="Delete" type="submit" class="mt-2 btn btn-info">
+                </form>
+            {% endfor %}
+        <form action="" method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" name="send" value="Узнать" class="mt-2 btn btn-danger">
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-danger" role="alert">
+                         {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </form>
+        </div>
+        <div class="col-4 offset-0">
+            <h1>Информация</h1>
+        </div>
+    </div>
+</div>
+{% endblock%}
+
+
+{#            {% for info in all_cities %}#}
+{##}
+{#                <b>Город:</b> {{ info.city }}<img src="https://openweathermap.org/img/w/{{ info.icon }}.png" alt="Weather_photo" class="img-thumbnail"><br>#}
+{#                <b>Температура:</b> {{ info.temp }}<sup>o</sup>C<br>#}
+{#                <b>Влажность:</b> {{ info.humidity }}% <br>#}
+{#                <form action="" method="post">#}
+{#                {% csrf_token %}#}
+{#                <input type="hidden" name="_method" value="delete">#}
+{#                <input name="city_name" id="city_name" value="{{ info.city }}" class="mt-3 btn btn-info" hidden>#}
+{#                <input value="Delete" type="submit" class="mt-2 btn btn-info">#}
+{#                </form>#}
+{#            {% endfor %}#}
+
