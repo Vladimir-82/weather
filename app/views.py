@@ -11,8 +11,8 @@ def index(request):
     cities = City.objects.all()
     appid = '31bd6b6a3c005a57dc32dbd102f5b6b1'
     url = \
-        'https://api.openweathermap.org/data/2.5/weather?q={}&units=metric&appid=' \
-        + appid
+        'https://api.openweathermap.org/data/2.5/weather?q={}&units=' \
+        'metric&appid=' + appid
 
     if request.method == 'POST':
         if request.POST.get('_method') == 'delete':

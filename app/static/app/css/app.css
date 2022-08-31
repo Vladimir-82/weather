@@ -1,0 +1,11 @@
+.logo {
+    width: 150px;
+    float: left;
+    padding: 2.5%;
+}
+
+.git {
+    width: 200px;
+    float: right;
+    padding: 2.5%;
+}
