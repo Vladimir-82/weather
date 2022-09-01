@@ -13,13 +13,18 @@
         <img src="{% static 'app/image/logo_100x100.jpg' %}" alt="Лого" class="logo">
         <span class="fs-1">Weather sevice from Vladimir</span>
       </a>
-      <nav class="d-inline-flex mt-2 mt-md-0 ms-md-auto">
-        <a class="me-3 py-2 text-dark text-decoration-none" href="/" class="d-flex align-items-center text-dark text-decoration-none">Главная</a>
-        <a class="me-3 py-2 text-dark text-decoration-none" href="/info">Контакты разработчика</a>
-      </nav>
-        <div class="git">
-      <a class="btn btn-outline-primary" href="https://github.com/Vladimir-82/">MY GIT HUB</a>
-        </div>
+          <nav class="d-inline-flex mt-2 mt-md-0 ms-md-auto">
+                <div class="git">
+                    <a class="btn btn-outline-primary" href="https://github.com/Vladimir-82/">MY GIT HUB</a>
+                </div>
+                <span class="navbar-text" class="nav">
+                    {% if request.user.is_authenticated %}
+                        Добро пожаловать, {{ user.username }} | <a href="{% url 'logout' %}">Выход</a>
+                    {% else %}
+                        <a href="{% url 'register' %}">Register</a> | <a href="{% url 'login' %}">Login</a>
+                    {% endif %}
+                </span>
+          </nav>
     </div>
     <section>
         {% block content %}

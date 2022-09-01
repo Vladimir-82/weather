@@ -6,3 +6,4 @@ class Message:
     )
     success_register = 'Вы успешно зарегистрировались'
     error_register = 'Ошибка регистрации'
+    city_alredy_added = 'City has alredy added!'

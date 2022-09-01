@@ -5,7 +5,11 @@
 }
 
 .git {
-    width: 200px;
-    float: right;
+    width: 150px;
+    float: left;
     padding: 2.5%;
+}
+
+nav {
+    padding: 3%;
 }
