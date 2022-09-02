@@ -4,7 +4,7 @@ from django.contrib import messages
 from django.contrib.auth import login, logout
 
 from .forms import *
-from .utils import Message
+from .utils import Message, WeatherInfo
 
 def index(request):
     current_user = request.user.id
@@ -13,20 +13,19 @@ def index(request):
     url = \
         'https://api.openweathermap.org/data/2.5/weather?q={}&units=' \
         'metric&appid=' + appid
-
     if request.method == 'POST':
         if request.POST.get('_method') == 'delete':
             city_name = request.POST.get('city_name', False)
             if city_name:
                 cities.get(name=city_name).members.remove(current_user)
+                messages.success(request, Message.city_removed)
         else:
             form = CityForm(request.POST)
             if form.is_valid():
                 city = request.POST['name']
                 res = requests.get(url.format(city)).json()
                 if res == {'cod': '404', 'message': 'city not found'}:
-                    messages.add_message(request, messages.INFO,
-                                         'Such city does not exist!')
+                    messages.success(request, Message.city_does_not_exist)
                 else:
                     cities_names_current = [city.name for city in cities]
                     cities_names_all = [city.name for city in
@@ -39,20 +38,11 @@ def index(request):
                         else:
                             new_city = City.objects.get(name=city)
                         new_city.members.add(current_user)
+                        messages.success(request,
+                                         Message.city_successfully_added)
     form = CityForm()
-    all_cities = []
-    cities = City.objects.filter(members=current_user)
-    for city in cities:
-        res = requests.get(url.format(city.name)).json()
-        city_info = {
-            'city': city.name,
-            'temp': res['main']['temp'],
-            'icon': res['weather'][0]['icon'],
-            'humidity': res['main']['humidity']
-        }
-        all_cities.append(city_info)
+    all_cities = WeatherInfo.weather_detail(url=url, current_user=current_user)
     context = {'all_cities': all_cities, 'form': form}
-
     return render(request, 'app/index.html', context)
 
 
