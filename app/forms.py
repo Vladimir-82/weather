@@ -7,25 +7,44 @@ from .models import City
 
 
 class UserLoginForm(AuthenticationForm):
-    username = forms.CharField(label='Имя пользователя',
+    username = forms.CharField(label='Username',
                                widget=forms.TextInput(
-                                   attrs={'class': 'form-control'}))
-    password = forms.CharField(label='Пароль', widget=forms.PasswordInput(
-        attrs={'class': 'form-control'}))
+                               attrs={'class': 'form-control',
+                                      'style': 'width:50ch'
+                                      }
+                               ))
+    password = forms.CharField(label='Password',
+                               widget=forms.PasswordInput(
+                               attrs={'class': 'form-control',
+                                      'style': 'width:50ch'
+                                      }
+                               ))
 
 
 class UserRegisterForm(UserCreationForm):
-    username = forms.CharField(label='Имя пользователя',
-                               help_text='Максимум 150 символов',
+    username = forms.CharField(label='Username',
+                               help_text='Maximum 150 characters',
                                widget=forms.TextInput(
-                                   attrs={'class': 'form-control'}))
-    password1 = forms.CharField(label='Пароль', widget=forms.PasswordInput(
-        attrs={'class': 'form-control'}))
-    password2 = forms.CharField(label='Подтверждение пароля',
+                               attrs={'class': 'form-control',
+                                      'style': 'width:50ch'
+                                      }
+                               ))
+    password1 = forms.CharField(label='Password', widget=forms.PasswordInput(
+                                attrs={'class': 'form-control',
+                                       'style': 'width:50ch'
+                                       }
+                                ))
+    password2 = forms.CharField(label='Password confirmation',
                                 widget=forms.PasswordInput(
-                                    attrs={'class': 'form-control'}))
+                                attrs={'class': 'form-control',
+                                       'style': 'width:50ch'
+                                       }
+                                ))
     email = forms.EmailField(label='E-mail', widget=forms.EmailInput(
-        attrs={'class': 'form-control'}))
+                             attrs={'class': 'form-control',
+                                    'style': 'width:50ch'
+                                    }
+                                ))
 
     class Meta:
         model = User
@@ -37,5 +56,5 @@ class CityForm(ModelForm):
         model = City
         fields = ['name']
         widgets = {'name': TextInput(attrs={
-            'placeholder': 'Введите город'
+            'placeholder': 'Input city'
         })}

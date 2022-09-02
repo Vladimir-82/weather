@@ -3,14 +3,13 @@ import requests
 from .models import City
 class Message:
     """Class for messages to user"""
-    unauthorized = (
-        'Только зарегистрированные пользователи могу использовать '
-        'сервис. Пройдите регистрацию или авторизацию.'
-    )
-    success_register = 'Вы успешно зарегистрировались'
-    error_register = 'Ошибка регистрации'
+    unauthorized = \
+        'Only registered users can use service. Please register or login.'
+
+    success_register = 'You have successfully registered'
+    error_register = 'registration error'
     city_does_not_exist = 'Such city does not exist!'
-    city_alredy_added = 'City has alredy added city recently!'
+    city_alredy_added = 'City has alredy added recently!'
     city_successfully_added = 'You has successfully added new city!'
     city_removed = 'City removed!'
 
@@ -30,7 +29,8 @@ class WeatherInfo:
                 'city': city.name,
                 'temp': res['main']['temp'],
                 'icon': res['weather'][0]['icon'],
-                'humidity': res['main']['humidity']
+                'humidity': res['main']['humidity'],
+                'pressure': res['main']['pressure'] / 10
             }
             all_cities.append(city_info)
         return all_cities
