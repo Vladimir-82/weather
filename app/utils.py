@@ -7,11 +7,11 @@ class Message:
         'Only registered users can use service. Please register or login.'
 
     success_register = 'You have successfully registered'
-    error_register = 'registration error'
+    error_register = 'Registration error'
     city_does_not_exist = 'Such city does not exist!'
-    city_alredy_added = 'City has alredy added recently!'
-    city_successfully_added = 'You has successfully added new city!'
-    city_removed = 'City removed!'
+    city_alredy_added = 'City has already added recently!'
+    city_successfully_added = 'City has already added!'
+    city_removed = 'City has already removed!'
 
 
 class WeatherInfo:
