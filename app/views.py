@@ -9,9 +9,6 @@ from .utils import Message
 def index(request):
     current_user = request.user.id
     cities = City.objects.filter(members=current_user)
-    # cities = City.objects.prefetch_related('members')
-    cities_names_current = [city.name for city in cities]
-    cities_names_all = [city.name for city in City.objects.all()]
     appid = '31bd6b6a3c005a57dc32dbd102f5b6b1'
     url = \
         'https://api.openweathermap.org/data/2.5/weather?q={}&units=' \
@@ -21,8 +18,7 @@ def index(request):
         if request.POST.get('_method') == 'delete':
             city_name = request.POST.get('city_name', False)
             if city_name:
-
-                cities.get(name=city_name).delete()
+                cities.get(name=city_name).members.remove(current_user)
         else:
             form = CityForm(request.POST)
             if form.is_valid():
@@ -32,6 +28,9 @@ def index(request):
                     messages.add_message(request, messages.INFO,
                                          'Such city does not exist!')
                 else:
+                    cities_names_current = [city.name for city in cities]
+                    cities_names_all = [city.name for city in
+                                        City.objects.all()]
                     if city in cities_names_current:
                         messages.error(request, Message.city_alredy_added)
                     else:
@@ -41,9 +40,7 @@ def index(request):
                             new_city = City.objects.get(name=city)
                         new_city.members.add(current_user)
     form = CityForm()
-
     all_cities = []
-    # cities = City.objects.prefetch_related('members')
     cities = City.objects.filter(members=current_user)
     for city in cities:
         res = requests.get(url.format(city.name)).json()
