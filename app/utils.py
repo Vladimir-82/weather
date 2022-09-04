@@ -17,7 +17,7 @@ class Message:
 class WeatherInfo:
     """Class for weather details"""
     @staticmethod
-    def weather_detail(url, current_user):
+    def weather_detail(url: str, current_user: id) -> list:
         """
         generates weather details for your city
         """
