@@ -3,6 +3,9 @@
 {% if message %}
     <div id="inner">
         <b>{{ message }}</b>
+        <script type="text/javascript">
+            $("#inner").css("color", "red")
+        </script>
     </div>
 {% else %}
     <div class="container mt-5">
