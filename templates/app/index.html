@@ -41,7 +41,7 @@
                     <form action="" method="post">
                     {% csrf_token %}
                     <input type="hidden" name="_method" value="delete">
-                    <input name="city_name" id="city_name" value="{{ info.city }}" class="mt-3 btn btn-info" hidden>
+                    <input name="city_name" id="city_name" value="{{ info.city }}"hidden>
                     <input value="Delete" type="submit" class="mt-2 btn btn-info">
                     </form>
                 {% endfor %}
