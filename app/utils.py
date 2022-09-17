@@ -4,7 +4,8 @@ from .models import City
 class Message:
     """Class for messages to user"""
     unauthorized = \
-        'Only registered users can use service. Please register or login.'
+        'Only registered users can create a personal account and fully use ' \
+        'the service. Please register or login.'
 
     success_register = 'You have successfully registered'
     error_register = 'Registration error'

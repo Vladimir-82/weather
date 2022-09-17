@@ -13,6 +13,7 @@ URL = \
 
 
 def index(request):
+    top_5_popular = City.objects.all()[:5]
     if request.user.is_authenticated:
         current_user = request.user.id
         cities = City.objects.filter(members=current_user)
@@ -46,11 +47,15 @@ def index(request):
         form = CityForm()
         all_cities = WeatherInfo.weather_detail(url=URL,
                                                 current_user=current_user)
-        context = {'all_cities': all_cities, 'form': form}
+        context = {'all_cities': all_cities,
+                   'top_5_popular': top_5_popular,
+                   'form': form
+                   }
         return render(request, 'app/index.html', context)
     else:
         return render(request, 'app/index.html',
-                      {'message': Message.unauthorized}
+                    {'top_5_popular': top_5_popular,
+                    'message': Message.unauthorized}
                       )
 
 
