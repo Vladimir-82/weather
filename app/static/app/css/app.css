@@ -1,8 +1,6 @@
 #inner {
-  width: 40%;
-  margin: 0 auto;
+  text-align: center;
 }
-
 
 .logo {
     width: 150px;
@@ -15,7 +13,6 @@
     float: left;
     padding: 2.5%;
 }
-
 
 nav {
     padding: 3%;

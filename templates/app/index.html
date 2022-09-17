@@ -1,12 +1,9 @@
 {% extends "layout/basic.html" %}
 {% block content %}
 {% if message %}
-    <div id="inner">
+    <p class="message" style="text-align: center; color: red">
         <b>{{ message }}</b>
-        <script type="text/javascript">
-            $("#inner").css("color", "red")
-        </script>
-    </div>
+    </p>
 {% else %}
     <div class="container mt-5">
         <div class="row">
@@ -49,4 +46,15 @@
         </div>
     </div>
 {% endif %}
+<div id="most" style="text-align: center">
+    <div class="pop">
+        <a class="btn btn-outline-primary" id="hide" style="display:none" href="#">Hide most popular cities</a>
+        <a class="btn btn-outline-primary" id="show"  href="#">Show most popular cities</a>
+    </div>
+    <div id="comments" style="display:none; margin: 1%">
+        <p>Commemt 1</p>
+        <p>Commemt 2</p>
+        <p>Commemt 3</p>
+    </div>
+</div>
 {% endblock%}
