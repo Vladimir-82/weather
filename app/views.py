@@ -2,6 +2,7 @@ import requests
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth import login, logout
+from django.db.models import Count
 
 from .forms import *
 from .utils import Message, WeatherInfo
@@ -13,7 +14,8 @@ URL = \
 
 
 def index(request):
-    top_5_popular = City.objects.all()[:5]
+    top_5_popular = City.objects.annotate(sv_count=Count("members")).order_by("")
+    print(top_5_popular)
     if request.user.is_authenticated:
         current_user = request.user.id
         cities = City.objects.filter(members=current_user)
