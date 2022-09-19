@@ -7,7 +7,7 @@
     </div>
     <div id="cities" style="display:none; margin: 1%">
         {% for city in top5_popular %}
-            <p>{{ city.name }}</p>
+            <a href="{% url 'detail' %}">{{ city }}</a><br>
         {% endfor %}
     </div>
 </div>

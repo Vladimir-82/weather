@@ -3,6 +3,7 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth import login, logout
 from django.db.models import Count
+from django.views.generic.list import ListView
 
 from .forms import *
 from .utils import Message, WeatherInfo
@@ -101,3 +102,16 @@ def user_logout(request):
     '''
     logout(request)
     return redirect('login')
+
+
+class ViewCity(ListView):
+    model = City
+    template_name = 'app/detail.html'
+    context_object_name = 'city_info'
+
+
+    def get_queryset(self):
+
+
+        return City.objects.get(name='Minsk')
+
