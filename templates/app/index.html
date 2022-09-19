@@ -6,9 +6,8 @@
         <a class="btn btn-outline-primary" id="show"  href="#">Show most popular cities</a>
     </div>
     <div id="cities" style="display:none; margin: 1%">
-        {% for city in top_5_popular %}
-            {{ city.name }} <br>
-            {{ city.sv_count }}<br>
+        {% for city in top5_popular %}
+            <p>{{ city.name }}</p>
         {% endfor %}
     </div>
 </div>
@@ -19,7 +18,7 @@
 {% else %}
     <div class="container mt-5">
         <div class="row">
-            <div class="col-6 offset-0">
+            <div class="col-6 offset-0" style="margin-bottom: 5%">
             <h1>Weather in your city</h1>
             <form action="" method="post">
                 {% csrf_token %}
@@ -40,7 +39,7 @@
                 {% endif %}
             </form>
             </div>
-            <div class="col-4 offset-0">
+            <div class="col-4 offset-0" style="margin-bottom: 5%">
                 <h1>Information</h1>
                 {% for info in all_cities %}
                     <b>City:</b> {{ info.city }}<img src="https://openweathermap.org/img/w/{{ info.icon }}.png" alt="Weather_photo" class="img-thumbnail"><br>

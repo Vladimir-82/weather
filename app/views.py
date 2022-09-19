@@ -14,8 +14,9 @@ URL = \
 
 
 def index(request):
-    top_5_popular = City.objects.annotate(sv_count=Count("members")).order_by("")
-    print(top_5_popular)
+    top5_popular = \
+        City.objects.annotate(con_count=
+                              Count("members")).order_by("-con_count")[:5]
     if request.user.is_authenticated:
         current_user = request.user.id
         cities = City.objects.filter(members=current_user)
@@ -50,13 +51,13 @@ def index(request):
         all_cities = WeatherInfo.weather_detail(url=URL,
                                                 current_user=current_user)
         context = {'all_cities': all_cities,
-                   'top_5_popular': top_5_popular,
+                   'top5_popular': top5_popular,
                    'form': form
                    }
         return render(request, 'app/index.html', context)
     else:
         return render(request, 'app/index.html',
-                    {'top_5_popular': top_5_popular,
+                    {'top5_popular': top5_popular,
                     'message': Message.unauthorized}
                       )
 

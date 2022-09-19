@@ -27,7 +27,7 @@ class WeatherInfo:
         for city in cities:
             res = requests.get(url.format(city.name)).json()
             city_info = {
-                'city': city.name,
+                'city': city.name.title(),
                 'temp': res['main']['temp'],
                 'icon': res['weather'][0]['icon'],
                 'humidity': res['main']['humidity'],
