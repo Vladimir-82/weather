@@ -1,0 +1,36 @@
+{% extends "layout/basic.html" %}
+
+{% block title %}Login{% endblock %}
+{% block content %}
+<div style="text-align: center">
+    <h4>City: {{ city_info.city }}</h4>
+    <div>
+        <p> Sky: <img src="https://openweathermap.org/img/w/{{ city_info.icon }}.png" alt="Weather_photo" class="img-thumbnail"></p>
+        <p>Temperature: {{ city_info.temp }}<sup>o</sup>C</p>
+        <p>Feels like: {{ city_info.feels_like}}<sup>o</sup>C</p>
+        <p>Humidity: {{ city_info.humidity }}%</p>
+        <p>Pressure: {{ city_info.pressure }} kPa</p>
+        <p>Visibility: {{ city_info.visibility }} m</p>
+        <p>Wind: {{ city_info.wind }} m/s</p>
+    </div>
+    <p>
+        <img src="https://1.bp.blogspot.com/-KZa6XktH5xY/WlHX117BB9I/AAAAAAAAKCo/q3VklH3TClQaW0ur5ke6Cm-8MJMX3eXRACEwYBhgL/s320/1485549014271.jpg" title="Touch me!" alt="small" id="img" width="200">
+    </p>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#img").bind("click", function (event) {
+                $(event.target).parent().css("text-align", "center");
+                $(event.target).animate({
+                    width: $(event.target).width() * 2,
+                    height: $(event.target).height() * 2,
+                }, 2000);
+
+            $(event.target).animate({
+                    width: $(event.target).width(),
+                    height: $(event.target).height(),
+                }, 2000);
+            });
+        });
+     </script>
+</div>
+{% endblock %}

@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth import login, logout
 from django.db.models import Count
-from django.views.generic.list import ListView
+from django.views.generic.detail import DetailView
 
 from .forms import *
 from .utils import Message, WeatherInfo
@@ -104,14 +104,24 @@ def user_logout(request):
     return redirect('login')
 
 
-class ViewCity(ListView):
+class ViewCity(DetailView):
     model = City
     template_name = 'app/detail.html'
     context_object_name = 'city_info'
 
-
-    def get_queryset(self):
-
-
-        return City.objects.get(name='Minsk')
-
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        city = context['object']
+        res = requests.get(URL.format(city)).json()
+        city_info = {
+            'city': city.name.title(),
+            'temp': res['main']['temp'],
+            'feels_like': res['main']['feels_like'],
+            'icon': res['weather'][0]['icon'],
+            'humidity': res['main']['humidity'],
+            'pressure': res['main']['pressure'] / 10,
+            'visibility': res['visibility'],
+            'wind': res['wind']['speed'],
+        }
+        context['city_info'] = city_info
+        return context
