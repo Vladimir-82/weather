@@ -14,6 +14,7 @@ URL = \
     + APPID
 
 
+
 def index(request):
     top5_popular = \
         City.objects.annotate(con_count=
