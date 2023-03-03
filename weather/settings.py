@@ -147,6 +147,7 @@ class HerokuDiscoverRunner(DiscoverRunner):
 if "CI" in os.environ:
     TEST_RUNNER = "weather.settings.HerokuDiscoverRunner"
 
+
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
