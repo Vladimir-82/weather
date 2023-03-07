@@ -36,13 +36,12 @@ def index(request):
                     if res == {'cod': '404', 'message': 'city not found'}:
                         messages.error(request, Message.city_does_not_exist)
                     else:
-                        cities_names_current = [city.name for city in cities]
-                        cities_names_all = [city.name for city in
-                                            City.objects.all()]
-                        if city in cities_names_current:
+                        if City.objects.filter(members=current_user,
+                                               name=city).exists():
                             messages.error(request, Message.city_alredy_added)
                         else:
-                            if city not in cities_names_all:
+                            if not City.objects.filter(name=city).exists():
+
                                 new_city = City.objects.create(name=city)
                             else:
                                 new_city = City.objects.get(name=city)
